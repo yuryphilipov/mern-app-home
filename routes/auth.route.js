@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../config/default.json");
 const User = require("../models/User");
+
 const router = Router();
 
 router.post(
@@ -17,7 +18,8 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req);
-      if (!errors.isEmpty) {
+      console.log(errors);
+      if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
           message: "Некорректные данные при регистрации",
@@ -42,7 +44,7 @@ router.post(
     } catch (e) {
       res
         .status(500)
-        .json({ message: "Что то пошло не так, попробуйте снова!" });
+        .json({ message: `Что то пошло не так, попробуйте снова! (${e})` });
     }
   }
 );
