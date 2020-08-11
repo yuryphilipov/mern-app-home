@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("../config/default.json");
+const config = require("config");
 const User = require("../models/User");
 
 const router = Router();
@@ -73,16 +73,17 @@ router.post(
         return res.status(400).json({ message: "Пользовтель не найден!" });
       }
 
-      const isMatch = bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch)
         return res
           .status(400)
           .json({ message: "Неверный пароль, попробуйте еще раз!" });
 
-      const token = jwt.sign({ userId: user.id }, config.get("jwt"), {
+      const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
+
       res.json({ token, userId: user.id });
     } catch (e) {
       res
