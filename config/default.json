@@ -1,5 +1,6 @@
 {
   "port": 3001,
   "jwtSecret": "yury philipov",
-  "mongoUri": "mongodb://localhost:27017/app"
+  "mongoUri": "mongodb://localhost:27017/app",
+  "baseUrl": "http://localhost:5000"
 }
