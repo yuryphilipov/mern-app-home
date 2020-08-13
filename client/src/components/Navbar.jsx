@@ -13,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <nav>
-      <div className='nav-wrapper blue darken-1'>
+      <div className='nav-wrapper blue darken-1' style={{ padding: "0 2rem" }}>
         <span href='/' className='brand-logo'>
           Сокращение ссылок
         </span>
